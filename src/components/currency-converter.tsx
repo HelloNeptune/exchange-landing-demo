@@ -153,6 +153,7 @@ export function CurrencyConverter() {
               onClick={() => {
                 setResult(null);
                 setAmount("0");
+                setConvertedFromAmount(null);
               }}
             >
               <X size={16} />
