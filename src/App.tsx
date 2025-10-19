@@ -1,10 +1,11 @@
+import { Hero } from "./components/hero";
 import styles from "./app.module.scss";
 
 export default function App() {
   return (
     <div className={styles.app}>
       <main className={styles.main}>
-        Exchange Landing Demo
+        <Hero />
       </main>
       <footer className={styles.footer}>
         <div className={`container ${styles['footer-container']}`}>
