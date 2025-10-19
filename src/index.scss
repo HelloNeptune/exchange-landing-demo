@@ -229,6 +229,296 @@ input:where([type="button"], [type="reset"], [type="submit"]) {
   outline-color: var(--ring);
 }
 
+@property --ex-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --ex-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --ex-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --ex-space-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --ex-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+
+@property --ex-gradient-position {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-gradient-from {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+
+@property --ex-gradient-via {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+
+@property --ex-gradient-to {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+
+@property --ex-gradient-stops {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-gradient-via-stops {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-gradient-from-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --ex-gradient-via-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --ex-gradient-to-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --ex-leading {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-font-weight {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-tracking {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --ex-shadow-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --ex-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --ex-inset-shadow-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-inset-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --ex-ring-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --ex-inset-ring-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --ex-ring-inset {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --ex-ring-offset-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: #fff;
+}
+
+@property --ex-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --ex-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+
+@property --ex-blur {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-brightness {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-contrast {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-grayscale {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-hue-rotate {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-invert {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-opacity {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-saturate {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-sepia {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-drop-shadow {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-drop-shadow-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-drop-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --ex-drop-shadow-size {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-duration {
+  syntax: "*";
+  inherits: false
+}
+
+@property --ex-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --ex-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --ex-scale-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+@keyframes enter {
+  from {
+    opacity: var(--ex-enter-opacity, 1);
+    transform: translate3d(var(--ex-enter-translate-x, 0), var(--ex-enter-translate-y, 0), 0) scale3d(var(--ex-enter-scale, 1), var(--ex-enter-scale, 1), var(--ex-enter-scale, 1)) rotate(var(--ex-enter-rotate, 0));
+  }
+}
+
+@keyframes exit {
+  to {
+    opacity: var(--ex-exit-opacity, 1);
+    transform: translate3d(var(--ex-exit-translate-x, 0), var(--ex-exit-translate-y, 0), 0) scale3d(var(--ex-exit-scale, 1), var(--ex-exit-scale, 1), var(--ex-exit-scale, 1)) rotate(var(--ex-exit-rotate, 0));
+  }
+}
+
 @keyframes float {
 
   0%,

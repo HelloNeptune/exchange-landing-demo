@@ -8,7 +8,6 @@ export default function App() {
   return (
     <div className={styles.app}>
       <Header />
-
       <main className={styles.main}>
         <CurrencyConverter />
         <Features />

@@ -1,7 +1,13 @@
+import { useState } from "react";
 import { Button } from "./ui/button";
 import styles from "./header.module.scss";
 
 export function Header() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  const openLoginModal = () => setIsLoginModalOpen(true);
+  const closeLoginModal = () => setIsLoginModalOpen(false);
+
   return (
     <>
       <header className={styles.header}>
@@ -14,7 +20,7 @@ export function Header() {
                 className={styles.logo}
               />
             </div>
-            <Button variant="outline">
+            <Button variant="outline" onClick={openLoginModal}>
               Login
             </Button>
           </div>

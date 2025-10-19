@@ -4,14 +4,65 @@ import { ArrowLeftRight, X } from "lucide-react";
 import styles from './currency-converter.module.scss';
 import { FromBox } from "./from-box";
 import { ToBox } from "./to-box";
+import { ExchangeRateService } from "../services";
 
 export function CurrencyConverter() {
   const [amount, setAmount] = useState("0");
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
   const [result, setResult] = useState<number | null>(null);
+  const [isSwapping, setIsSwapping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleConvert = async () => {
+    const amountNum = parseFloat(amount);
+    if (!isNaN(amountNum) && fromCurrency && toCurrency && amountNum > 0) {
+      if (fromCurrency === toCurrency) {
+        setResult(amountNum);
+        return;
+      }
+
+      setIsLoading(true);
+
+      const [error, conversionData] = await ExchangeRateService.convertCurrency(
+        fromCurrency,
+        toCurrency,
+        amountNum
+      );
+
+      if (error || !conversionData) {
+        console.warn('API failed, using fallback rates:', error);
+      } else {
+        setResult(conversionData.conversion_result);
+      }
+
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isSwapping) {
+      handleConvert();
+      setIsSwapping(false);
+    }
+  }, [fromCurrency, toCurrency, isSwapping]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (parseInt(amount) && fromCurrency && toCurrency && !isSwapping) {
+        handleConvert();
+      }
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [amount, fromCurrency, toCurrency]);
+
+  const handleSwap = () => {
+    const temp = fromCurrency;
+    setFromCurrency(toCurrency);
+    setToCurrency(temp);
+    setIsSwapping(true);
+  };
   return (
     <section
       className={styles['currency-converter']}>
@@ -49,7 +100,7 @@ export function CurrencyConverter() {
         </div>
 
         <div className="conversion-cards">
-          <FromBox
+          <FromBox 
             fromCurrency={fromCurrency}
             amount={amount}
             onCurrencyChange={setFromCurrency}
@@ -60,7 +111,7 @@ export function CurrencyConverter() {
             <Button
               variant="outline"
               size="icon"
-              onClick={() => {}}
+              onClick={handleSwap}
               className="action-button swap-button"
             >
               <ArrowLeftRight className="swap-icon" />
@@ -68,7 +119,7 @@ export function CurrencyConverter() {
             </Button>
           </div>
 
-          <ToBox
+          <ToBox 
             toCurrency={toCurrency}
             result={result}
             onCurrencyChange={setToCurrency}
@@ -77,9 +128,9 @@ export function CurrencyConverter() {
 
         <div className="convert-button-container">
           <Button
-            onClick={() => {}}
+            onClick={handleConvert}
             className="action-button"
-            disabled={false}
+            disabled={isLoading}
           >
             <span className="button-text">
               {isLoading ? 'Converting...' : 'Convert Currency'}
@@ -90,7 +141,7 @@ export function CurrencyConverter() {
 
         {result !== null && (
           <div className="result-container">
-            <button
+            <button 
               className="result-close-button"
               onClick={() => {
                 setResult(null);
