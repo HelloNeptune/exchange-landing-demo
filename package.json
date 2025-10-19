@@ -1,0 +1,26 @@
+{
+    "name": "exchange-landing-demo",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@radix-ui/react-select": "^2.1.6",
+        "await-to-js": "^3.0.0",
+        "axios": "^1.12.2",
+        "clsx": "*",
+        "lucide-react": "^0.487.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.0",
+        "@types/react": "^19.2.2",
+        "@types/react-dom": "^19.2.2",
+        "@vitejs/plugin-react-swc": "^3.10.2",
+        "sass": "^1.93.2",
+        "vite": "6.3.5"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    }
+}
