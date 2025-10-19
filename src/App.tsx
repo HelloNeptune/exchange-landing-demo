@@ -1,6 +1,7 @@
 import { Header } from "./components/header";
 import { Hero } from "./components/hero";
 import { Features } from "./components/features";
+import { CurrencyConverter } from "./components/currency-converter";
 import styles from "./app.module.scss";
 
 export default function App() {
@@ -9,8 +10,9 @@ export default function App() {
       <Header />
 
       <main className={styles.main}>
-        <Hero />
+        <CurrencyConverter />
         <Features />
+        <Hero />
       </main>
       <footer className={styles.footer}>
         <div className={`container ${styles['footer-container']}`}>
