@@ -1,11 +1,16 @@
+import { Header } from "./components/header";
 import { Hero } from "./components/hero";
+import { Features } from "./components/features";
 import styles from "./app.module.scss";
 
 export default function App() {
   return (
     <div className={styles.app}>
+      <Header />
+
       <main className={styles.main}>
         <Hero />
+        <Features />
       </main>
       <footer className={styles.footer}>
         <div className={`container ${styles['footer-container']}`}>

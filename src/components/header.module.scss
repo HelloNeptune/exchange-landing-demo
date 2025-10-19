@@ -1,0 +1,32 @@
+.header {
+  position: fixed;
+  top: 10px;
+  x: 0;
+  z-index: 2;
+  background: #ffffff87;
+  backdrop-filter: blur(10px);
+  width: calc(100% - 40px);
+  max-width: 700px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 30px;
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    height: 2.5rem;
+    width: auto;
+  }
+}

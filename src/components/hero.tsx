@@ -1,3 +1,4 @@
+import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import styles from "./hero.module.scss";
 
@@ -21,6 +22,10 @@ export function Hero() {
                 and payment options.
               </p>
             </div>
+            <Button className={styles['button']}>
+              Exchange Fund
+              <ArrowRight className="size-5" />
+            </Button>
           </div>
           <div className={styles['image-container']}>
             <div className={styles['background-blur']}></div>
