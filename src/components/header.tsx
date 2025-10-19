@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
+import { Modal } from "./ui/modal";
+import { LoginForm } from "./login-form";
 import styles from "./header.module.scss";
 
 export function Header() {
@@ -26,6 +28,14 @@ export function Header() {
           </div>
         </div>
       </header>
+
+      <Modal 
+        isOpen={isLoginModalOpen} 
+        onClose={closeLoginModal}
+        title="Sign In"
+      >
+        <LoginForm onClose={closeLoginModal} />
+      </Modal>
     </>
   );
 }
