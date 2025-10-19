@@ -165,13 +165,13 @@ export function CurrencyConverter() {
             </button>
             <p className="result-text">
               <span className="amount-from">
-                {convertedFromAmount?.toFixed(2)} {fromCurrency}
+                {convertedFromAmount?.toFixed(2)} {convertedFromCurrency}
               </span>
               <span className="separator">
                 ≈
               </span>
               <span className="amount-to">
-                {result.toFixed(2)} {toCurrency}
+                {result.toFixed(2)} {convertedToCurrency}
               </span>
             </p>
           </div>
