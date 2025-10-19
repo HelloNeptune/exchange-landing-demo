@@ -16,21 +16,21 @@ export function Header() {
         <div className='container'>
           <div className={styles['header-content']}>
             <div className={styles['logo-container']}>
-              <img 
-                src="logo.png" 
-                alt="EasyExchange" 
+              <img
+                src="logo.png"
+                alt="EasyExchange"
                 className={styles.logo}
               />
             </div>
-            <Button variant="outline" onClick={openLoginModal}>
+            <Button variant="outline" onClick={openLoginModal} style={{ marginLeft: '30px' }}>
               Login
             </Button>
           </div>
         </div>
       </header>
 
-      <Modal 
-        isOpen={isLoginModalOpen} 
+      <Modal
+        isOpen={isLoginModalOpen}
         onClose={closeLoginModal}
         title="Sign In"
       >
