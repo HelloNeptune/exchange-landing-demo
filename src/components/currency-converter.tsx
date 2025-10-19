@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "./ui/button";
 import { ArrowLeftRight, X } from "lucide-react";
 import styles from './currency-converter.module.scss';
@@ -8,14 +8,18 @@ import { ExchangeRateService } from "../services";
 
 export function CurrencyConverter() {
   const [amount, setAmount] = useState("0");
+  const [convertedFromAmount, setConvertedFromAmount] = useState<number | null>(null);
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
   const [result, setResult] = useState<number | null>(null);
   const [isSwapping, setIsSwapping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleConvert = async () => {
+  const handleConvert = useCallback(async () => {
+    if (isLoading) return;
+
     const amountNum = parseFloat(amount);
+
     if (!isNaN(amountNum) && fromCurrency && toCurrency && amountNum > 0) {
       if (fromCurrency === toCurrency) {
         setResult(amountNum);
@@ -30,15 +34,24 @@ export function CurrencyConverter() {
         amountNum
       );
 
-      if (error || !conversionData) {
-        console.warn('API failed, using fallback rates:', error);
-      } else {
-        setResult(conversionData.conversion_result);
-      }
+      // Some delay to show the result
+      const randWait = Math.floor(Math.random() * (1000 - 200 + 1)) + 200;
 
-      setIsLoading(false);
+      const t = setTimeout(() => {
+        clearTimeout(t);
+
+        if (error || !conversionData) {
+          console.warn('API failed, using fallback rates:', error);
+          setIsLoading(false);
+          return;
+        }
+
+        setResult(conversionData.conversion_result);
+        setConvertedFromAmount(amountNum);
+        setIsLoading(false);
+      }, randWait);
     }
-  };
+  }, [amount, fromCurrency, toCurrency, isLoading]);
 
   useEffect(() => {
     if (isSwapping) {
@@ -46,16 +59,6 @@ export function CurrencyConverter() {
       setIsSwapping(false);
     }
   }, [fromCurrency, toCurrency, isSwapping]);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (parseInt(amount) && fromCurrency && toCurrency && !isSwapping) {
-        handleConvert();
-      }
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
-  }, [amount, fromCurrency, toCurrency]);
 
   const handleSwap = () => {
     const temp = fromCurrency;
@@ -100,7 +103,7 @@ export function CurrencyConverter() {
         </div>
 
         <div className="conversion-cards">
-          <FromBox 
+          <FromBox
             fromCurrency={fromCurrency}
             amount={amount}
             onCurrencyChange={setFromCurrency}
@@ -119,7 +122,7 @@ export function CurrencyConverter() {
             </Button>
           </div>
 
-          <ToBox 
+          <ToBox
             toCurrency={toCurrency}
             result={result}
             onCurrencyChange={setToCurrency}
@@ -128,9 +131,13 @@ export function CurrencyConverter() {
 
         <div className="convert-button-container">
           <Button
-            onClick={handleConvert}
+            onClick={() => {
+              if (parseInt(amount) && fromCurrency && toCurrency && !isSwapping) {
+                handleConvert();
+              }
+            }}
             className="action-button"
-            disabled={isLoading}
+            disabled={isLoading || amount === "0" || parseInt(amount) === convertedFromAmount}
           >
             <span className="button-text">
               {isLoading ? 'Converting...' : 'Convert Currency'}
@@ -141,7 +148,7 @@ export function CurrencyConverter() {
 
         {result !== null && (
           <div className="result-container">
-            <button 
+            <button
               className="result-close-button"
               onClick={() => {
                 setResult(null);
@@ -152,7 +159,7 @@ export function CurrencyConverter() {
             </button>
             <p className="result-text">
               <span className="amount-from">
-                {amount} {fromCurrency}
+                {convertedFromAmount?.toFixed(2)} {fromCurrency}
               </span>
               <span className="separator">
                 ≈
