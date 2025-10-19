@@ -8,12 +8,15 @@ import { ExchangeRateService } from "../services";
 
 export function CurrencyConverter() {
   const [amount, setAmount] = useState("0");
-  const [convertedFromAmount, setConvertedFromAmount] = useState<number | null>(null);
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
   const [result, setResult] = useState<number | null>(null);
   const [isSwapping, setIsSwapping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [convertedFromAmount, setConvertedFromAmount] = useState<number | null>(null);
+  const [convertedFromCurrency, setConvertedFromCurrency] = useState<string | null>(null);
+  const [convertedToCurrency, setConvertedtoCurrency] = useState<string | null>(null);
+
 
   const handleConvert = useCallback(async () => {
     if (isLoading) return;
@@ -48,6 +51,8 @@ export function CurrencyConverter() {
 
         setResult(conversionData.conversion_result);
         setConvertedFromAmount(amountNum);
+        setConvertedFromCurrency(fromCurrency);
+        setConvertedtoCurrency(toCurrency);
         setIsLoading(false);
       }, randWait);
     }
@@ -137,7 +142,7 @@ export function CurrencyConverter() {
               }
             }}
             className="action-button"
-            disabled={isLoading || amount === "0" || parseInt(amount) === convertedFromAmount}
+            disabled={isLoading || amount === "0" || (parseInt(amount) === convertedFromAmount && fromCurrency === convertedFromCurrency && toCurrency === convertedToCurrency)}
           >
             <span className="button-text">
               {isLoading ? 'Converting...' : 'Convert Currency'}
