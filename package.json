@@ -21,6 +21,7 @@
     },
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "serve": "pm2 serve build 5434 --name \"exchange-landing\""
     }
 }
